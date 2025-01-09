@@ -6,12 +6,48 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0" />
     <title>Rock Paper Scissors</title>
+    <style>
+      body {
+        background-color: black;
+      }
+      .app-title {
+        color: whitesmoke;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .move-rock {
+        width: 120px;
+        height: 120px;
+        margin: 10px;
+        border-radius: 60px;
+        background-color: #fbd165;
+        border: 2px solid #fbd165;
+        cursor: pointer;
+      }
+      .move-paper {
+        width: 120px;
+        height: 120px;
+        margin: 10px;
+        border-radius: 60px;
+        background-color: #f4b0bf;
+        border: 2px solid #f4b0bf;
+        cursor: pointer;
+      }
+      .move-scissors {
+        width: 120px;
+        height: 120px;
+        margin: 10px;
+        border-radius: 60px;
+        background-color: #a9cc8a;
+        border: 2px solid #a9cc8a;
+        cursor: pointer;
+      }
+    </style>
   </head>
   <body>
-    <p>Rock Paper Scissors</p>
-    <button>Rock</button>
-    <button>Paper</button>
-    <button>Scissors</button>
+    <h1 class="app-title">Rock Paper Scissors</h1>
+    <button class="move-rock">Rock</button>
+    <button class="move-paper">Paper</button>
+    <button class="move-scissors">Scissors</button>
     <script>
       const playGame = (e) => {
         const randomNumber = Math.random();
