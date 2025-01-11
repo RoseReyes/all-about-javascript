@@ -140,6 +140,10 @@
         score.wins = 0;
         score.looses = 0;
         score.ties = 0;
+
+        document.getElementById(
+          'results'
+        ).innerHTML = `Wins: ${score.wins}, Looses: ${score.looses}, Ties: ${score.ties}`;
       };
     </script>
   </body>
