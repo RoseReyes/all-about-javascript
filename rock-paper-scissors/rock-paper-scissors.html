@@ -41,7 +41,9 @@
         border: 2px solid whitesmoke;
         cursor: pointer;
       }
-      #results {
+      #score-label,
+      #result-label,
+      #move-label {
         color: whitesmoke;
         font-family: Arial, Helvetica, sans-serif;
       }
@@ -64,8 +66,11 @@
       onclick="playGame('scissors')">
       Scissors
     </button>
-    <p id="results"></p>
+    <p id="result-label"></p>
+    <p id="move-label"></p>
+    <p id="score-label"></p>
     <button onclick="resetGame()">Reset Game</button>
+
     <script>
       let score = JSON.parse(localStorage.getItem('score')) || {
         wins: 0,
@@ -127,19 +132,30 @@
           score.ties++;
         }
 
-        alert(
-          `Your move is ${playerMove}, Computer move is ${computerMove}. ${result} 
-          Wins: ${score.wins}, Looses: ${score.losses}, Ties: ${score.ties}`
-        );
+        updateScore();
+
+        document.querySelector('#result-label').innerText = result;
+
+        document.querySelector(
+          '#move-label'
+        ).innerText = `You ${playerMove} - ${computerMove} Computer`;
 
         localStorage.setItem('score', JSON.stringify(score));
+      };
+
+      const updateScore = () => {
+        document.querySelector(
+          '#score-label'
+        ).innerText = ` Wins: ${score.wins}, Looses: ${score.losses}, Ties: ${score.ties}`;
       };
 
       const resetGame = () => {
         score.wins = 0;
         score.losses = 0;
         score.ties = 0;
-
+        updateScore();
+        document.querySelector('#result-label').innerText = '';
+        document.querySelector('#move-label').innerText = '';
         localStorage.removeItem('score');
       };
     </script>
