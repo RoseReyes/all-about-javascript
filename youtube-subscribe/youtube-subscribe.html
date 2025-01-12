@@ -11,13 +11,13 @@
     <p>Youtube Subscribe Button</p>
     <button
       class="subscribe-button"
-      onclick="toggleText()">
+      onclick="subscribe()">
       Subscribe
     </button>
     <script>
       const buttonElement = document.querySelector('.subscribe-button');
 
-      const toggleText = () => {
+      const subscribe = () => {
         if (buttonElement.innerText === 'Subscribe') {
           buttonElement.innerText = 'Subscribed';
         } else {
