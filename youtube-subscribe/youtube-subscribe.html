@@ -6,22 +6,45 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0" />
     <title>DOM Projects</title>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      button {
+        font-weight: bold;
+        width: 100px;
+        border-radius: 20px;
+        padding: 10px;
+      }
+      .subscribe {
+        background-color: black;
+        color: whitesmoke;
+      }
+      .subscribed {
+        background-color: grey;
+        color: black;
+      }
+    </style>
   </head>
   <body>
     <p>Youtube Subscribe Button</p>
     <button
-      class="subscribe-button"
+      class="subscribe"
       onclick="subscribe()">
       Subscribe
     </button>
     <script>
-      const buttonElement = document.querySelector('.subscribe-button');
+      const buttonElement = document.querySelector('.subscribe');
 
       const subscribe = () => {
         if (buttonElement.innerText === 'Subscribe') {
           buttonElement.innerText = 'Subscribed';
+          buttonElement.classList.remove('subscribe');
+          buttonElement.classList.add('subscribed');
         } else {
           buttonElement.innerText = 'Subscribe';
+          buttonElement.classList.remove('subscribed');
+          buttonElement.classList.add('subscribe');
         }
       };
     </script>
