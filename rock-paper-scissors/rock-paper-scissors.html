@@ -5,7 +5,7 @@
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0" />
-    <title>Rock Paper Scissors</title>
+    <title>Grass Fire Water</title>
     <style>
       body {
         background-color: black;
@@ -14,31 +14,40 @@
         color: whitesmoke;
         font-family: Arial, Helvetica, sans-serif;
       }
-      .move-rock {
+      .move-grass {
         width: 120px;
         height: 120px;
         margin: 10px;
         border-radius: 60px;
-        background-color: #0185cd;
-        border: 2px solid whitesmoke;
+        background-image: url('../images/balbasaur.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        border: 2px solid green;
         cursor: pointer;
       }
-      .move-paper {
+      .move-fire {
         width: 120px;
         height: 120px;
         margin: 10px;
         border-radius: 60px;
-        background-color: #fdd100;
-        border: 2px solid whitesmoke;
+        background-image: url('../images/charizard.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        border: 2px solid orangered;
         cursor: pointer;
       }
-      .move-scissors {
+      .move-water {
         width: 120px;
         height: 120px;
         margin: 10px;
         border-radius: 60px;
-        background-color: #e70012;
-        border: 2px solid whitesmoke;
+        background-image: url('../images/squirtle.jpg');
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        border: 2px solid blue;
         cursor: pointer;
       }
       #score-label,
@@ -50,24 +59,18 @@
     </style>
   </head>
   <body>
-    <h1 class="app-title">Rock Paper Scissors</h1>
+    <h1 class="app-title">grass fire water</h1>
     <button
-      class="move-rock"
-      onclick="playGame('rock')">
-      Rock
-    </button>
+      class="move-grass"
+      onclick="playGame('grass')"></button>
     <button
-      class="move-paper"
-      onclick="playGame('paper')">
-      Paper
-    </button>
+      class="move-fire"
+      onclick="playGame('fire')"></button>
     <button
-      class="move-scissors"
-      onclick="playGame('scissors')">
-      Scissors
-    </button>
+      class="move-water"
+      onclick="playGame('water')"></button>
     <p id="result-label"></p>
-    <p id="move-label"></p>
+    <div id="move-label"></div>
     <p id="score-label"></p>
     <button onclick="resetGame()">Reset Game</button>
 
@@ -84,11 +87,11 @@
         let computerMove = '';
 
         if (randomNumber >= 0 && randomNumber < 1 / 3) {
-          computerMove = 'rock';
+          computerMove = 'grass';
         } else if (randomNumber >= 1 / 3 && randomNumber < 2 / 3) {
-          computerMove = 'paper';
+          computerMove = 'fire';
         } else if (randomNumber >= 2 / 3 && randomNumber < 1) {
-          computerMove = 'scissors';
+          computerMove = 'water';
         }
         return computerMove;
       };
@@ -98,28 +101,28 @@
 
         let result = '';
 
-        if (playerMove === 'scissors') {
-          if (computerMove === 'rock') {
+        if (playerMove === 'water') {
+          if (computerMove === 'grass') {
             result = 'You lose, go home.';
-          } else if (computerMove === 'paper') {
+          } else if (computerMove === 'fire') {
             result = 'You win!';
-          } else if (computerMove === 'scissors') {
+          } else if (computerMove === 'water') {
             result = 'Tie!';
           }
-        } else if (playerMove === 'rock') {
-          if (computerMove === 'paper') {
+        } else if (playerMove === 'grass') {
+          if (computerMove === 'fire') {
             result = 'You lose, go home.';
-          } else if (computerMove === 'scissors') {
+          } else if (computerMove === 'water') {
             result = 'You win!';
-          } else if (computerMove === 'rock') {
+          } else if (computerMove === 'grass') {
             result = 'Tie!';
           }
-        } else if (playerMove === 'paper') {
-          if (computerMove === 'scissors') {
+        } else if (playerMove === 'fire') {
+          if (computerMove === 'water') {
             result = 'You lose, go home.';
-          } else if (computerMove === 'rock') {
+          } else if (computerMove === 'grass') {
             result = 'You win!';
-          } else if (computerMove === 'paper') {
+          } else if (computerMove === 'fire') {
             result = 'Tie!';
           }
         }
@@ -135,10 +138,9 @@
         updateScore();
 
         document.querySelector('#result-label').innerText = result;
-
         document.querySelector(
           '#move-label'
-        ).innerText = `You ${playerMove} - ${computerMove} Computer`;
+        ).innerText = `${playerMove} vs ${computerMove}`;
 
         localStorage.setItem('score', JSON.stringify(score));
       };
