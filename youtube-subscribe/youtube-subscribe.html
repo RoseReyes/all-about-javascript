@@ -16,11 +16,11 @@
         border-radius: 20px;
         padding: 10px;
       }
-      .subscribe {
+      .subscribe-button {
         background-color: black;
         color: whitesmoke;
       }
-      .subscribed {
+      .subscribed-button {
         background-color: grey;
         color: black;
       }
@@ -29,22 +29,22 @@
   <body>
     <p>Youtube Subscribe Button</p>
     <button
-      class="subscribe"
+      class="js-subscribe-button subscribe-button"
       onclick="subscribe()">
       Subscribe
     </button>
     <script>
-      const buttonElement = document.querySelector('.subscribe');
+      const buttonElement = document.querySelector('.js-subscribe-button');
 
       const subscribe = () => {
         if (buttonElement.innerText === 'Subscribe') {
           buttonElement.innerText = 'Subscribed';
-          buttonElement.classList.remove('subscribe');
-          buttonElement.classList.add('subscribed');
+          buttonElement.classList.remove('subscribe-button');
+          buttonElement.classList.add('subscribed-button');
         } else {
           buttonElement.innerText = 'Subscribe';
-          buttonElement.classList.remove('subscribed');
-          buttonElement.classList.add('subscribe');
+          buttonElement.classList.remove('subscribed-button');
+          buttonElement.classList.add('subscribe-button');
         }
       };
     </script>

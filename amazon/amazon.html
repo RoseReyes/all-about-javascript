@@ -2,6 +2,22 @@
 <html>
   <head>
     <title>DOM Projects</title>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .calculate-button {
+        width: 120px;
+        height: 43px;
+        background-color: green;
+        color: whitesmoke;
+        border: none;
+      }
+      .cost-input {
+        width: 233px;
+        height: 38px;
+      }
+    </style>
   </head>
   <body>
     <p>Amazon Shipping Calculator</p>
@@ -9,9 +25,10 @@
     <p>Orders over $40 = FREE shipping.</p>
     <input
       placeholder="Cost of order"
-      class="cost-input"
+      class="js-cost-input cost-input"
       onkeydown="handleCostKeydown(event)" />
     <button
+      class="js-calculate-button calculate-button"
       onclick="
       calculateTotal();
     ">
@@ -27,7 +44,7 @@
       };
 
       const calculateTotal = () => {
-        const inputElement = document.querySelector('.cost-input');
+        const inputElement = document.querySelector('.js-cost-input');
         let cost = Number(inputElement.value);
 
         if (cost < 40) {
