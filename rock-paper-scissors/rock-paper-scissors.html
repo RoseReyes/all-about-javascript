@@ -5,161 +5,47 @@
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0" />
-    <title>Grass Fire Water</title>
-    <style>
-      body {
-        background-color: black;
-      }
-      .app-title {
-        color: whitesmoke;
-        font-family: Arial, Helvetica, sans-serif;
-      }
-      .move-grass {
-        width: 120px;
-        height: 120px;
-        margin: 10px;
-        border-radius: 60px;
-        background-image: url('../images/balbasaur.png');
-        background-repeat: no-repeat;
-        background-size: contain;
-        background-position: center;
-        border: 2px solid green;
-        cursor: pointer;
-      }
-      .move-fire {
-        width: 120px;
-        height: 120px;
-        margin: 10px;
-        border-radius: 60px;
-        background-image: url('../images/charizard.png');
-        background-repeat: no-repeat;
-        background-size: contain;
-        background-position: center;
-        border: 2px solid orangered;
-        cursor: pointer;
-      }
-      .move-water {
-        width: 120px;
-        height: 120px;
-        margin: 10px;
-        border-radius: 60px;
-        background-image: url('../images/squirtle.jpg');
-        background-repeat: no-repeat;
-        background-size: contain;
-        background-position: center;
-        border: 2px solid blue;
-        cursor: pointer;
-      }
-      #score-label,
-      #result-label,
-      #move-label {
-        color: whitesmoke;
-        font-family: Arial, Helvetica, sans-serif;
-      }
-    </style>
+    <title>Rock Paper Scissors</title>
+    <link
+      rel="stylesheet"
+      href="../css/rock-paper-scissors.css" />
   </head>
   <body>
-    <h1 class="app-title">grass fire water</h1>
+    <h1 class="app-title">Rock Paper Scissors</h1>
     <button
-      class="move-grass"
-      onclick="playGame('grass')"></button>
+      onclick="playGame('rock')"
+      class="move-button">
+      <img
+        src="../images/rock-emoji.png"
+        class="move-icon"
+        alt="rock" />
+    </button>
     <button
-      class="move-fire"
-      onclick="playGame('fire')"></button>
+      onclick="playGame('paper')"
+      class="move-button">
+      <img
+        src="../images/paper-emoji.png"
+        class="move-icon"
+        alt="paper" />
+    </button>
     <button
-      class="move-water"
-      onclick="playGame('water')"></button>
-    <p id="result-label"></p>
-    <div id="move-label"></div>
-    <p id="score-label"></p>
-    <button onclick="resetGame()">Reset Game</button>
-
-    <script>
-      let score = JSON.parse(localStorage.getItem('score')) || {
-        wins: 0,
-        losses: 0,
-        ties: 0,
-      };
-
-      const pickComputerMove = () => {
-        const randomNumber = Math.random();
-
-        let computerMove = '';
-
-        if (randomNumber >= 0 && randomNumber < 1 / 3) {
-          computerMove = 'grass';
-        } else if (randomNumber >= 1 / 3 && randomNumber < 2 / 3) {
-          computerMove = 'fire';
-        } else if (randomNumber >= 2 / 3 && randomNumber < 1) {
-          computerMove = 'water';
-        }
-        return computerMove;
-      };
-
-      const playGame = (playerMove) => {
-        const computerMove = pickComputerMove();
-
-        let result = '';
-
-        if (playerMove === 'water') {
-          if (computerMove === 'grass') {
-            result = 'You lose, go home.';
-          } else if (computerMove === 'fire') {
-            result = 'You win!';
-          } else if (computerMove === 'water') {
-            result = 'Tie!';
-          }
-        } else if (playerMove === 'grass') {
-          if (computerMove === 'fire') {
-            result = 'You lose, go home.';
-          } else if (computerMove === 'water') {
-            result = 'You win!';
-          } else if (computerMove === 'grass') {
-            result = 'Tie!';
-          }
-        } else if (playerMove === 'fire') {
-          if (computerMove === 'water') {
-            result = 'You lose, go home.';
-          } else if (computerMove === 'grass') {
-            result = 'You win!';
-          } else if (computerMove === 'fire') {
-            result = 'Tie!';
-          }
-        }
-
-        if (result.includes('You win!')) {
-          score.wins++;
-        } else if (result.includes('You lose, go home.')) {
-          score.losses++;
-        } else if (result.includes('Tie!')) {
-          score.ties++;
-        }
-
-        updateScore();
-
-        document.querySelector('#result-label').innerText = result;
-        document.querySelector(
-          '#move-label'
-        ).innerText = `${playerMove} vs ${computerMove}`;
-
-        localStorage.setItem('score', JSON.stringify(score));
-      };
-
-      const updateScore = () => {
-        document.querySelector(
-          '#score-label'
-        ).innerText = ` Wins: ${score.wins}, Looses: ${score.losses}, Ties: ${score.ties}`;
-      };
-
-      const resetGame = () => {
-        score.wins = 0;
-        score.losses = 0;
-        score.ties = 0;
-        updateScore();
-        document.querySelector('#result-label').innerText = '';
-        document.querySelector('#move-label').innerText = '';
-        localStorage.removeItem('score');
-      };
-    </script>
+      onclick="playGame('scissors')"
+      class="move-button">
+      <img
+        src="../images/scissors-emoji.png"
+        class="move-icon"
+        alt="scissors" />
+    </button>
+    <p class="js-result result"></p>
+    <p class="js-moves"></p>
+    <p class="js-score score"></p>
+    <button
+      onclick="resetGame()"
+      class="reset-score-button">
+      Reset Game
+    </button>
+    <script
+      src="../scripts/rock-paper-scissors.js"
+      text="javascript"></script>
   </body>
 </html>
