@@ -2,25 +2,9 @@
 <html>
   <head>
     <title>DOM Projects</title>
-    <style>
-      body {
-        font-family: Arial, Helvetica, sans-serif;
-      }
-
-      .calculate-button {
-        font-size: 15px;
-        padding: 12px 15px;
-        background-color: green;
-        color: whitesmoke;
-        border: none;
-        cursor: pointer;
-      }
-
-      .cost-input {
-        font-size: 15px;
-        padding: 10px;
-      }
-    </style>
+    <link
+      rel="stylesheet"
+      href="../css/amazon.css" />
   </head>
   <body>
     <p>Amazon Shipping Calculator</p>
@@ -39,23 +23,6 @@
     </button>
     <p class="total-cost"></p>
 
-    <script>
-      const handleCostKeydown = (e) => {
-        if (e.keyCode === 13) {
-          calculateTotal();
-        }
-      };
-
-      const calculateTotal = () => {
-        const inputElement = document.querySelector('.js-cost-input');
-        let cost = Number(inputElement.value);
-
-        if (cost < 40) {
-          cost = cost + 10;
-        }
-
-        document.querySelector('.total-cost').innerHTML = `$${cost}`;
-      };
-    </script>
+    <script src="../scripts/amazon.js"></script>
   </body>
 </html>
