@@ -12,19 +12,21 @@
   </head>
   <body>
     <p>Todo List</p>
-    <input
-      class="js-todo-input todo-input"
-      type="text"
-      placeholder="Todo name" />
-    <input
-      class="js-due-date due-date"
-      type="date" />
-    <button
-      class="js-add-todo add-todo"
-      onclick="addTodo()">
-      Add
-    </button>
-    <div class="js-todo-container todo-container"></div>
+    <div class="todo-input-grid">
+      <input
+        class="js-todo-input todo-input"
+        type="text"
+        placeholder="Todo name" />
+      <input
+        class="js-due-date due-date-input"
+        type="date" />
+      <button
+        class="js-add-todo add-todo-button"
+        onclick="addTodo()">
+        Add
+      </button>
+    </div>
+    <div class="js-todo-list todo-grid"></div>
     <script src="../scripts/todo-lists.js"></script>
   </body>
 </html>

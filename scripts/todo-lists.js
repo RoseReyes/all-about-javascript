@@ -1,36 +1,35 @@
-const todoObject = [];
-const todoListContainer = document.querySelector('.js-todo-container');
-const todoDueDate = document.querySelector('.js-due-date');
+const todoList = [];
 
 const renderDom = () => {
   let todoListHTML = '';
 
-  for (let t = 0; t < todoObject.length; t++) {
-    const todo = todoObject[t];
+  todoList.forEach((todoObject, index) => {
+    const { name, dueDate } = todoObject;
     const html = `
-    <p>
-        ${todo.name} 
-        ${todo.date} 
-        <button class="delete" onclick="removeTodo(${t})">Delete</button></p>
+    <div>${name}</div>
+    <div>${dueDate}</div>
+    <button class="delete-todo-button" onclick="removeTodo(${index})">Delete</button>
     `;
     todoListHTML += html;
-  }
+  });
 
-  todoListContainer.innerHTML = todoListHTML;
+  document.querySelector('.js-todo-list').innerHTML = todoListHTML;
 };
 
 const addTodo = () => {
   const todoInputElement = document.querySelector('.js-todo-input');
   const name = todoInputElement.value;
 
-  todoObject.push({
-    name: name,
-    date: todoDueDate.value,
+  const dateInputElement = document.querySelector('.js-due-date');
+  const dueDate = dateInputElement.value;
+
+  todoList.push({
+    name,
+    dueDate,
   });
 
   todoInputElement.value = '';
-  todoDueDate.value = '';
-
+  dateInputElement.value = '';
   renderDom();
 };
 
