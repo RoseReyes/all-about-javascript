@@ -6,25 +6,25 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0" />
     <title>Todo List</title>
-    <link rel="stylesheet" href="../css/todo-list.css">
+    <link
+      rel="stylesheet"
+      href="../css/todo-list.css" />
   </head>
   <body>
-    <p>Todo List Pratice 1</p>
+    <p>Todo List</p>
     <input
-      class="js-todo-input"
+      class="js-todo-input todo-input"
       type="text"
-      placeholder="Todo name"
-      />
+      placeholder="Todo name" />
     <input
-      class="js-date-input"
+      class="js-due-date due-date"
       type="date" />
-      <button
-      class="js-add-todo"
+    <button
+      class="js-add-todo add-todo"
       onclick="addTodo()">
       Add
     </button>
-    <div class="js-todo-list"><div>
-      <div class="js-todo-list"><div>
+    <div class="js-todo-container todo-container"></div>
     <script src="../scripts/todo-lists.js"></script>
   </body>
 </html>

@@ -1,3 +1,33 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.todo-input,
+.due-date {
+  font-size: 15px;
+  padding: 10px 9px;
+  margin-right: 5px;
+}
+
+.add-todo {
+  font-size: 15px;
+  padding: 10px 35px;
+  background-color: #017101;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.delete {
+  font-size: 15px;
+  padding: 10px 35px;
+  margin: 20px;
+  background-color: #700000;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.html-list {
+  margin-right: 20px;
+}
