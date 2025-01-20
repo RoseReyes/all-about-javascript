@@ -1,5 +1,11 @@
 const resultElement = document.querySelector('.js-result');
 const movesElement = document.querySelector('.js-moves');
+const rockMoveElement = document.querySelector('.js-move-rock');
+const paperMoveElement = document.querySelector('.js-move-paper');
+const scissorsMoveElement = document.querySelector('.js-move-scissors');
+const autoPlayButtonElement = document.querySelector('.js-auto-play');
+const resetButtonElement = document.querySelector('.js-reset-button');
+
 let score = JSON.parse(localStorage.getItem('score')) || {
   wins: 0,
   losses: 0,
@@ -25,6 +31,10 @@ const autoPlay = () => {
     document.querySelector('.js-auto-play').innerText = 'Auto Play';
   }
 };
+
+autoPlayButtonElement.addEventListener('click', () => {
+  autoPlay();
+});
 
 const pickComputerMove = () => {
   const randomNumber = Math.random();
@@ -92,6 +102,18 @@ const playGame = (playerMove) => {
   localStorage.setItem('score', JSON.stringify(score));
 };
 
+rockMoveElement.addEventListener('click', () => {
+  playGame('rock');
+});
+
+paperMoveElement.addEventListener('click', () => {
+  playGame('paper');
+});
+
+scissorsMoveElement.addEventListener('click', () => {
+  playGame('scissors');
+});
+
 const updateScore = () => {
   const scoreElement = document.querySelector('.js-score');
   scoreElement.innerText = ` Wins: ${score.wins}, Looses: ${score.losses}, Ties: ${score.ties}`;
@@ -107,6 +129,10 @@ const resetGame = () => {
   movesElement.innerHTML = '';
   localStorage.removeItem('score');
 };
+
+resetButtonElement.addEventListener('click', () => {
+  resetGame();
+});
 
 const init = () => {
   updateScore();
