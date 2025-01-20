@@ -43,15 +43,12 @@ const pickComputerMove = () => {
   return computerMove;
 };
 
-const playGame = (letter) => {
+const playGame = (playerMove) => {
   const computerMove = pickComputerMove();
-  const playerMove =
-    letter === 'r' ? 'rock' : letter === 'p' ? 'paper' : 'scissors';
-
   let result = '';
 
-  switch (letter) {
-    case 'r':
+  switch (playerMove) {
+    case 'rock':
       if (computerMove === 'paper') {
         result = 'You lose, go home.';
       } else if (computerMove === 'scissors') {
@@ -60,7 +57,7 @@ const playGame = (letter) => {
         result = 'Tie!';
       }
       break;
-    case 'p':
+    case 'paper':
       if (computerMove === 'scissors') {
         result = 'You lose, go home.';
       } else if (computerMove === 'rock') {
@@ -69,7 +66,7 @@ const playGame = (letter) => {
         result = 'Tie!';
       }
       break;
-    case 's':
+    case 'scissors':
       if (computerMove === 'rock') {
         result = 'You lose, go home.';
       } else if (computerMove === 'paper') {
@@ -130,7 +127,13 @@ autoPlayButtonElement.addEventListener('click', () => {
 });
 
 document.body.addEventListener('keydown', (event) => {
-  playGame(event.key);
+  if (event.key === 'r') {
+    playGame('rock');
+  } else if (event.key === 'p') {
+    playGame('paper');
+  } else {
+    playGame('scissors');
+  }
 });
 
 const init = () => {
