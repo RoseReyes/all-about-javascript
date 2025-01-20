@@ -43,14 +43,14 @@ const pickComputerMove = () => {
   return computerMove;
 };
 
-const playGame = (event) => {
+const playGame = (letter) => {
   const computerMove = pickComputerMove();
   const playerMove =
-    event.key === 'r' ? 'rock' : event.key === 'p' ? 'paper' : 'scissors';
+    letter === 'r' ? 'rock' : letter === 'p' ? 'paper' : 'scissors';
 
   let result = '';
 
-  switch (event.key) {
+  switch (letter) {
     case 'r':
       if (computerMove === 'paper') {
         result = 'You lose, go home.';
@@ -129,8 +129,8 @@ autoPlayButtonElement.addEventListener('click', () => {
   autoPlay();
 });
 
-document.body.addEventListener('keydown', (e) => {
-  playGame(e);
+document.body.addEventListener('keydown', (event) => {
+  playGame(event.key);
 });
 
 const init = () => {
