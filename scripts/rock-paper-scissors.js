@@ -1,8 +1,5 @@
 const resultElement = document.querySelector('.js-result');
 const movesElement = document.querySelector('.js-moves');
-const rockMoveElement = document.querySelector('.js-move-rock');
-const paperMoveElement = document.querySelector('.js-move-paper');
-const scissorsMoveElement = document.querySelector('.js-move-scissors');
 const autoPlayButtonElement = document.querySelector('.js-auto-play');
 const resetButtonElement = document.querySelector('.js-reset-button');
 
@@ -32,10 +29,6 @@ const autoPlay = () => {
   }
 };
 
-autoPlayButtonElement.addEventListener('click', () => {
-  autoPlay();
-});
-
 const pickComputerMove = () => {
   const randomNumber = Math.random();
   let computerMove = '';
@@ -50,34 +43,43 @@ const pickComputerMove = () => {
   return computerMove;
 };
 
-const playGame = (playerMove) => {
+const playGame = (event) => {
   const computerMove = pickComputerMove();
+  const playerMove =
+    event.key === 'r' ? 'rock' : event.key === 'p' ? 'paper' : 'scissors';
+
   let result = '';
 
-  if (playerMove === 'rock') {
-    if (computerMove === 'paper') {
-      result = 'You lose, go home.';
-    } else if (computerMove === 'scissors') {
-      result = 'You win!';
-    } else if (computerMove === 'rock') {
-      result = 'Tie!';
-    }
-  } else if (playerMove === 'paper') {
-    if (computerMove === 'scissors') {
-      result = 'You lose, go home.';
-    } else if (computerMove === 'rock') {
-      result = 'You win!';
-    } else if (computerMove === 'paper') {
-      result = 'Tie!';
-    }
-  } else if (playerMove === 'scissors') {
-    if (computerMove === 'rock') {
-      result = 'You lose, go home.';
-    } else if (computerMove === 'paper') {
-      result = 'You win!';
-    } else if (computerMove === 'scissors') {
-      result = 'Tie!';
-    }
+  switch (event.key) {
+    case 'r':
+      if (computerMove === 'paper') {
+        result = 'You lose, go home.';
+      } else if (computerMove === 'scissors') {
+        result = 'You win!';
+      } else if (computerMove === 'rock') {
+        result = 'Tie!';
+      }
+      break;
+    case 'p':
+      if (computerMove === 'scissors') {
+        result = 'You lose, go home.';
+      } else if (computerMove === 'rock') {
+        result = 'You win!';
+      } else if (computerMove === 'paper') {
+        result = 'Tie!';
+      }
+      break;
+    case 's':
+      if (computerMove === 'rock') {
+        result = 'You lose, go home.';
+      } else if (computerMove === 'paper') {
+        result = 'You win!';
+      } else if (computerMove === 'scissors') {
+        result = 'Tie!';
+      }
+      break;
+    default:
+      console.log('invalid letter');
   }
 
   if (result.includes('You win!')) {
@@ -102,18 +104,6 @@ const playGame = (playerMove) => {
   localStorage.setItem('score', JSON.stringify(score));
 };
 
-rockMoveElement.addEventListener('click', () => {
-  playGame('rock');
-});
-
-paperMoveElement.addEventListener('click', () => {
-  playGame('paper');
-});
-
-scissorsMoveElement.addEventListener('click', () => {
-  playGame('scissors');
-});
-
 const updateScore = () => {
   const scoreElement = document.querySelector('.js-score');
   scoreElement.innerText = ` Wins: ${score.wins}, Looses: ${score.losses}, Ties: ${score.ties}`;
@@ -130,8 +120,17 @@ const resetGame = () => {
   localStorage.removeItem('score');
 };
 
+/* Events */
 resetButtonElement.addEventListener('click', () => {
   resetGame();
+});
+
+autoPlayButtonElement.addEventListener('click', () => {
+  autoPlay();
+});
+
+document.body.addEventListener('keydown', (e) => {
+  playGame(e);
 });
 
 const init = () => {
