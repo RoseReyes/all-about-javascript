@@ -47,8 +47,8 @@ const displayProducts = () => {
             <img src="images/icons/checkmark.png" />
             Added
           </div>
-          <button class="js-add-to-cart add-to-cart-button button-primary" data-product-name="${
-            product.name
+          <button class="js-add-to-cart add-to-cart-button button-primary" data-product-id="${
+            product.id
           }">Add to Cart</button>
         </div>`;
   });
@@ -58,12 +58,12 @@ const displayProducts = () => {
   document.querySelectorAll('.js-add-to-cart').forEach((button) => {
     button.addEventListener('click', () => {
       const productIdx = cart.findIndex(
-        (item) => item.productName === button.dataset.productName
+        (item) => item.productId === button.dataset.productId
       );
 
       if (productIdx === -1) {
         cart.push({
-          productName: button.dataset.productName,
+          productId: button.dataset.productId,
           quantity: 1,
         });
       } else {
