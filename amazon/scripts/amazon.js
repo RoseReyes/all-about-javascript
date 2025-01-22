@@ -9,7 +9,7 @@ const displayProducts = () => {
               src=${product.image} />
           </div>
           <div class="product-name limit-text-to-2-lines">
-  ${product.name}
+            ${product.name}
           </div>
           <div class="product-rating-container">
             <img
@@ -47,11 +47,34 @@ const displayProducts = () => {
             <img src="images/icons/checkmark.png" />
             Added
           </div>
-          <button class="add-to-cart-button button-primary">Add to Cart</button>
+          <button class="js-add-to-cart add-to-cart-button button-primary" data-product-id="${
+            product.id
+          }">Add to Cart</button>
         </div>`;
   });
 
   document.querySelector('.products-grid').innerHTML = productsHTML;
+
+  document.querySelectorAll('.js-add-to-cart').forEach((button) => {
+    button.addEventListener('click', () => {
+      const productIdx = cart.findIndex(
+        (item) => item.productId === button.dataset.productId
+      );
+
+      if (productIdx === -1) {
+        cart.push({
+          productId: button.dataset.productId,
+          quantity: 1,
+        });
+      } else {
+        cart[productIdx]['quantity']++;
+      }
+    });
+  });
 };
 
-displayProducts();
+const init = () => {
+  displayProducts();
+};
+
+init();
