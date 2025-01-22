@@ -69,6 +69,15 @@ const displayProducts = () => {
       } else {
         cart[productIdx]['quantity']++;
       }
+
+      // sum the product quantity
+      const cartQuantity = cart.reduce(
+        (previousValue, currentValue) => previousValue + currentValue.quantity,
+        0
+      );
+
+      // append to the DOM
+      document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
     });
   });
 };
