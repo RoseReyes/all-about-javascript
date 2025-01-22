@@ -24,7 +24,7 @@ const displayProducts = () => {
             2
           )}</div>
           <div class="product-quantity-container">
-            <select>
+            <select class="js-quantity-selector-${product.id}">
               <option
                 selected
                 value="1">
@@ -57,6 +57,12 @@ const displayProducts = () => {
 
   document.querySelectorAll('.js-add-to-cart').forEach((button) => {
     button.addEventListener('click', () => {
+      const quantity = Number(
+        document.querySelector(
+          `.js-quantity-selector-${button.dataset.productId}`
+        ).value
+      );
+
       const productIdx = cart.findIndex(
         (item) => item.productId === button.dataset.productId
       );
@@ -64,10 +70,10 @@ const displayProducts = () => {
       if (productIdx === -1) {
         cart.push({
           productId: button.dataset.productId,
-          quantity: 1,
+          quantity: quantity,
         });
       } else {
-        cart[productIdx]['quantity']++;
+        cart[productIdx]['quantity'] += quantity;
       }
 
       // sum the product quantity
