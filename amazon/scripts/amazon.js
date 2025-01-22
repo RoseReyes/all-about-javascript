@@ -1,6 +1,8 @@
 let productsHTML = '';
 
 const displayProducts = () => {
+  const addedMessageTimeouts = {};
+
   products.forEach((product) => {
     productsHTML += `<div class="product-container">
           <div class="product-image-container">
@@ -43,7 +45,7 @@ const displayProducts = () => {
           </div>
 
           <div class="product-spacer"></div>
-          <div class="added-to-cart">
+          <div class="js-added-to-cart-${product.id} added-to-cart">
             <img src="images/icons/checkmark.png" />
             Added
           </div>
@@ -82,12 +84,32 @@ const displayProducts = () => {
         0
       );
 
+      // display added
+      document
+        .querySelector(`.js-added-to-cart-${button.dataset.productId}`)
+        .classList.add('added-to-cart-visible');
+
+      // we check if there's a previous timeout id
+      const previousTimeoutId = addedMessageTimeouts[button.dataset.productId];
+      if (previousTimeoutId) {
+        clearTimeout(previousTimeoutId);
+      }
+
+      const timeoutId = setTimeout(() => {
+        document
+          .querySelector(`.js-added-to-cart-${button.dataset.productId}`)
+          .classList.remove('added-to-cart-visible');
+      }, 2000);
+
+      // Save the timeoutId for this product
+      // so we can stop it later if we need to.
+      addedMessageTimeouts[button.dataset.productId] = timeoutId;
+
       // append to the DOM
       document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
     });
   });
 };
-
 const init = () => {
   displayProducts();
 };
