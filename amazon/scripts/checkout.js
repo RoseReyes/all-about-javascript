@@ -1,6 +1,6 @@
 import { cart } from '../data/cart.js';
 import { products } from '../data/products.js';
-import { formatCurrency } from './utils/money.js';
+import { formatCurrency } from '../scripts/utils/money.js';
 
 let checkoutHTML = '';
 
@@ -50,7 +50,7 @@ cart.forEach((cartItem) => {
                     <input
                       type="radio"
                       class="delivery-option-input"
-                      name="delivery-option-2" />
+                      name="delivery-option-${matchingProduct.id}" />
                     <div>
                       <div class="delivery-option-date">Tuesday, June 21</div>
                       <div class="delivery-option-price">FREE Shipping</div>
@@ -61,7 +61,7 @@ cart.forEach((cartItem) => {
                       type="radio"
                       checked
                       class="delivery-option-input"
-                      name="delivery-option-2" />
+                      name="delivery-option-${matchingProduct.id}"/>
                     <div>
                       <div class="delivery-option-date">Wednesday, June 15</div>
                       <div class="delivery-option-price">$4.99 - Shipping</div>
@@ -71,7 +71,7 @@ cart.forEach((cartItem) => {
                     <input
                       type="radio"
                       class="delivery-option-input"
-                      name="delivery-option-2" />
+                      name="delivery-option-${matchingProduct.id}"/>
                     <div>
                       <div class="delivery-option-date">Monday, June 13</div>
                       <div class="delivery-option-price">$9.99 - Shipping</div>
