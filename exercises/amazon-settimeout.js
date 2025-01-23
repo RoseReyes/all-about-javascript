@@ -1,10 +1,11 @@
 import { cart, addToCart } from '../data/cart.js';
 import { products } from '../data/products.js';
-import { formatCurrency } from '../scripts/utils/money.js';
 
 let productsHTML = '';
 
 const displayProducts = () => {
+  const addedMessageTimeouts = {};
+
   products.forEach((product) => {
     productsHTML += `<div class="product-container">
           <div class="product-image-container">
@@ -24,7 +25,9 @@ const displayProducts = () => {
             }</div>
           </div>
 
-          <div class="product-price">${formatCurrency(product.priceCents)}</div>
+          <div class="product-price">${(product.priceCents / 100).toFixed(
+            2
+          )}</div>
           <div class="product-quantity-container">
             <select class="js-quantity-selector-${product.id}">
               <option
@@ -57,22 +60,48 @@ const displayProducts = () => {
 
   document.querySelector('.products-grid').innerHTML = productsHTML;
 
-  const updateCartQuantity = () => {
-    const cartQuantity = cart.reduce(
-      (previousValue, currentValue) => previousValue + currentValue.quantity,
-      0
-    );
-
-    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
-  };
-
   document.querySelectorAll('.js-add-to-cart').forEach((button) => {
     button.addEventListener('click', () => {
       const productId = button.dataset.productId;
       addToCart(productId);
       updateCartQuantity();
+      displayAddedMessage(productId);
     });
   });
+};
+
+const updateCartQuantity = () => {
+  // sum the product quantity
+  const cartQuantity = cart.reduce(
+    (previousValue, currentValue) => previousValue + currentValue.quantity,
+    0
+  );
+
+  // display added
+  document
+    .querySelector(`.js-added-to-cart-${button.dataset.productId}`)
+    .classList.add('added-to-cart-visible');
+
+  // append to the DOM
+  document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+};
+
+const displayAddedMessage = (productId) => {
+  // we check if there's a previous timeout id
+  const previousTimeoutId = addedMessageTimeouts[productId];
+  if (previousTimeoutId) {
+    clearTimeout(previousTimeoutId);
+  }
+
+  const timeoutId = setTimeout(() => {
+    document
+      .querySelector(`.js-added-to-cart-${productId}`)
+      .classList.remove('added-to-cart-visible');
+  }, 2000);
+
+  // Save the timeoutId for this product
+  // so we can stop it later if we need to.
+  addedMessageTimeouts[productId] = timeoutId;
 };
 
 const init = () => {
