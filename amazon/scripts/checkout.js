@@ -114,7 +114,6 @@ document.querySelectorAll('.js-delete-link').forEach((link) => {
 
 document.querySelectorAll('.js-delivery-option').forEach((element) => {
   element.addEventListener('click', () => {
-    console.log(element.dataset);
     const { productId, deliveryoptionId } = element.dataset;
     updateDeliveryOption(productId, deliveryoptionId);
   });
