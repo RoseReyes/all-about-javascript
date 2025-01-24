@@ -103,6 +103,7 @@ export const renderOrderSummary = () => {
       removeFromCart(productId);
 
       document.querySelector(`.js-cart-item-container-${productId}`).remove();
+      renderPaymentSummary();
     });
   });
 
