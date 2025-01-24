@@ -3,26 +3,26 @@ import { products } from '../data/products.js';
 import { formatCurrency } from '../scripts/utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import { deliveryOptions } from '../data/deliveryOptions.js';
-let checkoutHTML = '';
 
-const deliveryOptionsHTML = (productId, cartItem) => {
-  let html = '';
+const renderOrderSummary = () => {
+  const deliveryOptionsHTML = (productId, cartItem) => {
+    let html = '';
 
-  deliveryOptions.forEach((deliveryOption) => {
-    const deliveryDate = dayjs(new Date())
-      .add(deliveryOption.deliveryDays, 'days')
-      .format('dddd, MMMM D');
+    deliveryOptions.forEach((deliveryOption) => {
+      const deliveryDate = dayjs(new Date())
+        .add(deliveryOption.deliveryDays, 'days')
+        .format('dddd, MMMM D');
 
-    const priceString =
-      deliveryOption.priceCents === 0
-        ? 'FREE'
-        : `$${formatCurrency(deliveryOption.priceCents)}`;
+      const priceString =
+        deliveryOption.priceCents === 0
+          ? 'FREE'
+          : `$${formatCurrency(deliveryOption.priceCents)}`;
 
-    const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
+      const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
 
-    html += `<div class="delivery-option js-delivery-option" data-product-id="${productId}" data-deliveryOption-id="${
-      deliveryOption.id
-    }"">
+      html += `<div class="delivery-option js-delivery-option" data-product-id="${productId}" data-deliveryOption-id="${
+        deliveryOption.id
+      }"">
       <input
         type="radio"
   ${isChecked ? 'checked' : ''}
@@ -33,35 +33,37 @@ const deliveryOptionsHTML = (productId, cartItem) => {
         <div class="delivery-option-price">${priceString} - Shipping</div>
       </div>
     </div>`;
-  });
+    });
 
-  return html;
-};
+    return html;
+  };
 
-cart.forEach((cartItem) => {
-  const productId = cartItem.id;
+  let checkoutHTML = '';
 
-  let matchingProduct;
+  cart.forEach((cartItem) => {
+    const productId = cartItem.id;
 
-  products.forEach((product) => {
-    if (product.id === productId) {
-      matchingProduct = product;
-    }
-  });
+    let matchingProduct;
 
-  const deliveryOptionId = cartItem.deliveryOptionId;
+    products.forEach((product) => {
+      if (product.id === productId) {
+        matchingProduct = product;
+      }
+    });
 
-  let deliveryOption;
+    const deliveryOptionId = cartItem.deliveryOptionId;
 
-  deliveryOptions.forEach((option) => {
-    if (option.id === deliveryOptionId) {
-      deliveryOption = option;
-    }
-  });
+    let deliveryOption;
 
-  checkoutHTML += `<div class="cart-item-container js-cart-item-container-${
-    matchingProduct.id
-  }">
+    deliveryOptions.forEach((option) => {
+      if (option.id === deliveryOptionId) {
+        deliveryOption = option;
+      }
+    });
+
+    checkoutHTML += `<div class="cart-item-container js-cart-item-container-${
+      matchingProduct.id
+    }">
               <div class="delivery-date">Delivery date: ${dayjs(new Date())
                 .add(deliveryOption.deliveryDays, 'days')
                 .format('dddd, MMMM D')}</div>
@@ -99,22 +101,26 @@ cart.forEach((cartItem) => {
                 </div>
               </div>
             </div>`;
-});
-
-document.querySelector('.js-order-summary').innerHTML = checkoutHTML;
-
-document.querySelectorAll('.js-delete-link').forEach((link) => {
-  link.addEventListener('click', () => {
-    const productId = link.dataset.productId;
-    removeFromCart(productId);
-
-    document.querySelector(`.js-cart-item-container-${productId}`).remove();
   });
-});
 
-document.querySelectorAll('.js-delivery-option').forEach((element) => {
-  element.addEventListener('click', () => {
-    const { productId, deliveryoptionId } = element.dataset;
-    updateDeliveryOption(productId, deliveryoptionId);
+  document.querySelector('.js-order-summary').innerHTML = checkoutHTML;
+
+  document.querySelectorAll('.js-delete-link').forEach((link) => {
+    link.addEventListener('click', () => {
+      const productId = link.dataset.productId;
+      removeFromCart(productId);
+
+      document.querySelector(`.js-cart-item-container-${productId}`).remove();
+    });
   });
-});
+
+  document.querySelectorAll('.js-delivery-option').forEach((element) => {
+    element.addEventListener('click', () => {
+      const { productId, deliveryoptionId } = element.dataset;
+      updateDeliveryOption(productId, deliveryoptionId);
+      renderOrderSummary();
+    });
+  });
+};
+
+renderOrderSummary();
