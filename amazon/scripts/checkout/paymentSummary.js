@@ -17,8 +17,8 @@ export const renderPaymentSummary = () => {
   });
 
   const totalBeforeTaxCents = productPriceCents + shippingPriceCents;
-  const estimatedTax = totalBeforeTaxCents * 0.1;
-  const orderTotal = totalBeforeTaxCents + estimatedTax;
+  const taxCents = totalBeforeTaxCents * 0.1;
+  const totalCents = totalBeforeTaxCents + taxCents;
 
   paymentSummaryHTML = `<div class="payment-summary-title">Order Summary</div>
 
@@ -46,14 +46,14 @@ export const renderPaymentSummary = () => {
           <div class="payment-summary-row">
             <div>Estimated tax (10%):</div>
             <div class="payment-summary-money">$${formatCurrency(
-              estimatedTax
+              taxCents
             )}</div>
           </div>
 
           <div class="payment-summary-row total-row">
             <div>Order total:</div>
             <div class="payment-summary-money">$${formatCurrency(
-              orderTotal
+              totalCents
             )}</div>
           </div>
 
