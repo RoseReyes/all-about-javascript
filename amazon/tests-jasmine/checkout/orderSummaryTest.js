@@ -1,5 +1,5 @@
 import { renderOrderSummary } from '../../scripts/checkout/orderSummary.js';
-import { loadFromStorage } from '../../data/cart.js';
+import { loadFromStorage, cart } from '../../data/cart.js';
 
 describe('Test suite: render order summary', () => {
   it('displays the cart', () => {
@@ -72,6 +72,18 @@ describe('Test suite: render order summary', () => {
     renderOrderSummary();
 
     document.querySelector(`.js-delete-link-${id1}`).click();
-    document.querySelector(`.js-delete-link-${id2}`).click();
+    expect(document.querySelectorAll('.js-cart-item-container').length).toEqual(
+      1
+    );
+
+    expect(document.querySelector(`.js-cart-item-container-${id1}`)).toEqual(
+      null
+    );
+
+    expect(
+      document.querySelector(`.js-cart-item-container-${id2}`)
+    ).not.toEqual(null);
+    expect(cart.length).toEqual(1);
+    expect(cart[0].id).toEqual(id2);
   });
 });
