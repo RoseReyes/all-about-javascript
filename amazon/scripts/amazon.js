@@ -1,10 +1,10 @@
 import { cart, addToCart } from '../data/cart.js';
-import { products } from '../data/products.js';
+import { products, loadProducts } from '../data/products.js';
 import { formatCurrency } from '../scripts/utils/money.js';
 
 let productsHTML = '';
 
-const displayProducts = () => {
+const renderProductsGrid = () => {
   products.forEach((product) => {
     productsHTML += `<div class="product-container">
           <div class="product-image-container">
@@ -75,8 +75,10 @@ const displayProducts = () => {
   });
 };
 
+loadProducts(renderProductsGrid);
+
 const init = () => {
-  displayProducts();
+  renderProductsGrid();
 };
 
 init();
