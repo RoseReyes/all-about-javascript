@@ -7,9 +7,10 @@ import { loadProductsFetch } from '../data/products.js';
 const loadPage = async () => {
   try {
     await loadProductsFetch();
-  } catch {
+  } catch (error) {
     console.log('Unexpected error. Please try again later.');
   }
+
   renderOrderSummary();
   renderPaymentSummary();
 };
