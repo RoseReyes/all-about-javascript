@@ -10,6 +10,51 @@ export const getProduct = (productId) => {
   return matchingProduct;
 };
 
+class Product {
+  id;
+  image;
+  name;
+  rating;
+  priceCents;
+
+  constructor(productDetails) {
+    this.id = productDetails.id;
+    this.image = productDetails.image;
+    this.name = productDetails.name;
+    this.rating = productDetails.rating;
+    this.priceCents = productDetails.priceCents;
+  }
+
+  getStarsUrl() {
+    return `images/ratings/rating-${this.rating.stars * 10}.png`;
+  }
+
+  getPrice() {
+    return `$${formatCurrency(this.priceCents)}`;
+  }
+
+  extraInfoHTML() {
+    return '';
+  }
+}
+
+class Clothing extends Product {
+  sizeChartLink;
+
+  constructor(productDetails) {
+    super(productDetails);
+    this.sizeChartLink = productDetails.sizeChartLink;
+  }
+
+  extraInfoHTML() {
+    return `
+      <a href="${this.sizeChartLink}" target="_blank">
+        Size chart
+      </a>
+    `;
+  }
+}
+
 export const products = [
   {
     id: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
@@ -481,4 +526,9 @@ export const products = [
     priceCents: 2400,
     keywords: ['sweaters', 'hoodies', 'apparel', 'mens'],
   },
-];
+].map((productDetails) => {
+  if (productDetails.type === 'clothing') {
+    return new Clothing(productDetails);
+  }
+  return new Product(productDetails);
+});
