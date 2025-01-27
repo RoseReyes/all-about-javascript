@@ -4,7 +4,7 @@ describe('Test suite: add to cart', () => {
   it('adds a new product to the cart', () => {
     spyOn(localStorage, 'setItem');
 
-    // mock te data from local storage
+    // mock the data from local storage
     spyOn(localStorage, 'getItem').and.callFake(() => {
       return JSON.stringify([]);
     });
