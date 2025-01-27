@@ -70,7 +70,7 @@ export const loadProductsFetch = () => {
         return new Product(productDetails);
       });
     })
-    .catch(() => {
+    .catch((error) => {
       console.log('Unexpected error. Please try again later.');
     });
 
