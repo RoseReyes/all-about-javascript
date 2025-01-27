@@ -2,6 +2,7 @@ import { cart } from '../../data/cart.js';
 import { getProduct } from '../../data/products.js';
 import { formatCurrency } from '../utils/money.js';
 import { getDeliveryOption } from '../../data/deliveryOptions.js';
+import { addOrder } from '../../data/orders.js';
 
 export const renderPaymentSummary = () => {
   let productPriceCents = 0;
@@ -75,5 +76,6 @@ export const renderPaymentSummary = () => {
       });
 
       const order = await response.json();
+      addOrder(order);
     });
 };
