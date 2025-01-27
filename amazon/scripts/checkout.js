@@ -6,6 +6,8 @@ import { loadProductsFetch } from '../data/products.js';
 
 const loadPage = async () => {
   try {
+    //throw 'error';
+
     await loadProductsFetch();
   } catch (error) {
     console.log('Unexpected error. Please try again later.');
