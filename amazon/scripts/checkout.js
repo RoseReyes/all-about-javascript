@@ -4,7 +4,11 @@ import { renderPaymentSummary } from './checkout/paymentSummary.js';
 //import '../data/backend-practice.js';
 import { loadProductsFetch } from '../data/products.js';
 
-Promise.all([loadProductsFetch()]).then(() => {
+const loadPage = async () => {
+  await loadProductsFetch();
+
   renderOrderSummary();
   renderPaymentSummary();
-});
+};
+
+loadPage();
